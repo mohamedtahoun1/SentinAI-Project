@@ -15,3 +15,9 @@ This tool is a primitive prototype designed for educational and demonstration pu
 Secrets Management: Moving from plain-text config files to secure Secret Vaults.
 Scalability: Implementation of multi-database support and containerization (Docker).
 Advanced Alerting: Integrating real-time notification systems (SMTP/Webhooks) for instant violation reporting.
+
+---
+
+## 👤 About the Author
+
+Developed by a **SOC Analyst** with a focus on defensive cybersecurity, automated compliance, and AI-driven threat detection. This project is a practical application of security frameworks in real-world database environments.
