@@ -1,0 +1,13 @@
+Why SentinAI?
+1. For Businesses & Organizations
+Automated Compliance: Reduces legal risks by ensuring continuous alignment with Egypt’s Data Protection Law (151/2020) and SDAIA regulations.
+Cost Efficiency: Minimizes the need for manual security audits, saving time and reducing human error in database configurations.
+Proactive Security: Detects suspicious activities in real-time through AI Risk Forensics, preventing data breaches before they escalate.
+Audit-Ready Reporting: Generates instant technical compliance scores and logs, simplifying the process of regulatory reporting.
+
+
+2. For Developers & Security Teams
+Bridge between Law & Tech: Demonstrates how to translate complex legal requirements into functional SQL & Python code.
+AI-Driven Monitoring: Leverages LangChain and Autonomous Agents to move beyond static scripts into intelligent, adaptive security.
+Seamless Integration: Designed to work directly with MS SQL Server environments using industry-standard libraries like pyodbc.
+Legal Intelligence: Stay ahead of regulatory changes with automated Web Scraping of official data protection portals.
