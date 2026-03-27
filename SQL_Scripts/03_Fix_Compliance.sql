@@ -1,0 +1,18 @@
+USE SecureDB;
+GO
+
+OPEN MASTER KEY DECRYPTION BY PASSWORD = 'SqlPass2026!';
+GO
+
+-- حذف وإعادة إنشاء المفتاح لضمان سلامة الحالة
+IF EXISTS (SELECT * FROM sys.symmetric_keys WHERE name = 'UserKey')
+    DROP SYMMETRIC KEY UserKey;
+GO
+
+CREATE SYMMETRIC KEY UserKey  
+WITH ALGORITHM = AES_256  
+ENCRYPTION BY MASTER KEY;
+GO
+
+CLOSE MASTER KEY;
+GO

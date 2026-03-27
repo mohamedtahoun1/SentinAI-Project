@@ -3,14 +3,14 @@ import time
 import configparser
 import os
 import logging
-import requests  # للميزة الجديدة: Web Scraping
-import getpass   # المكتبة المسؤولة عن إخفاء الباسورد
-from bs4 import BeautifulSoup # للميزة الجديدة: Web Scraping
+import requests
+import getpass
+from bs4 import BeautifulSoup
 from datetime import datetime
 
-# --- 1. إعداد محرك الذاكرة الخارجية (Logging Engine) ---
+# --- System Logging Configuration ---
 logging.basicConfig(
-    filename='agent_intelligence.log', # الملف الذي سيجمع البيانات للـ ML
+    filename='agent_intelligence.log',
     level=logging.INFO,
     format='%(asctime)s | %(levelname)s | %(message)s'
 )
@@ -21,12 +21,11 @@ def log_event(message, level="INFO"):
     else:
         logging.warning(message)
 
-# --- 2. نظام إدارة المستخدمين وتصاريح الدخول ---
+# --- Configuration & Identity Management ---
 def load_all_settings():
     config = configparser.ConfigParser()
     settings_file = 'settings.ini'
     if not os.path.exists(settings_file):
-        # إنشاء ملف الإعدادات الافتراضي مع بيانات قاعدة البيانات والمستخدمين
         config['DATABASE'] = {
             'server': 'B2-3\\ESPRESS2',
             'database': 'SecureDB',
@@ -44,22 +43,20 @@ def load_all_settings():
 def login_system():
     config = load_all_settings()
     if 'USERS' not in config:
-        # حماية إضافية في حالة تلف ملف الـ ini
         config['USERS'] = {'admin': 'admin123'}
     
     users_list = config['USERS']
     
-    # --- شعار SentinAI الجديد ---
     print("""
     ***************************************************
-         _____            _   _             _____ 
-        / ____|          | | (_)           / ____|
-       | (___  ___ _ __ | |_ _ _ __   _ _| |     
-        \___ \/ _ \ '_ \| __| | '_ \ / _` | |     
-        ____) |  __/ | | | |_| | | | | (_| | |____ 
-       |_____/ \___|_| |_|\__|_|_| |_|\__,_|\_____|
-                                                   
-               >> THE INTELLIGENT GUARDIAN <<
+          _____            _   _             _____ 
+         / ____|          | | (_)           / ____|
+        | (___  ___ _ __ | |_ _ _ __   _ _| |     
+         \___ \/ _ \ ' _ \| __| | '_ \ / _` | |     
+         ____) |  __/ | | | |_| | | | | (_| | |____ 
+        |_____/ \___|_| |_|\__|_|_| |_|\__,_|\_____|
+                                                    
+                 >> THE INTELLIGENT GUARDIAN <<
     ***************************************************
     """)
     print(f" [!] System Initialization... [OK]")
@@ -83,14 +80,14 @@ def login_system():
     print("\n [CRITICAL] SentinAI Locked: Unauthorized Access Detected.")
     return False, None
 
-# --- 3. محرك اكتشاف الأنماط (الذكاء الزمني) ---
+# --- Risk Analysis Engine ---
 def analyze_risk(action_time):
     hour = action_time.hour
     if 0 <= hour <= 5:
         return "HIGH RISK (Suspicious Hours)"
     return "NORMAL"
 
-# --- 4. التحديث التلقائي للقوانين (Web Scraping) ---
+# --- Legal Intelligence (Web Scraping) ---
 def check_legal_updates():
     try:
         url = "https://www.sdaia.gov.sa/ar/SDAIA/Pages/Regulations.aspx"
@@ -101,7 +98,7 @@ def check_legal_updates():
     except:
         return False
 
-# --- 5. التعلم من قرار البشر (Human-in-the-loop) ---
+# --- Human-in-the-loop Feedback ---
 def collect_feedback():
     print("\n--- SENTINAI TRAINING MODE (Feedback) ---")
     event_id = input("Enter Event Date/ID to label: ")
@@ -110,7 +107,7 @@ def collect_feedback():
     log_event(f"FEEDBACK: Event {event_id} marked as {status}")
     print(f"SentinAI memory updated: This pattern is now known as {status}.")
 
-# --- 6. الاتصال بقاعدة البيانات ---
+# --- Database Connectivity ---
 def get_db_connection():
     try:
         config = load_all_settings()
@@ -127,7 +124,7 @@ def get_db_connection():
         log_event(f"DATABASE CONNECTION ERROR: {str(e)}", "ERROR")
         return None
 
-# --- 7. فحص حالة الامتثال مع "التنبيه الذكي" ---
+# --- Compliance & Security Monitoring ---
 def get_compliance_status():
     report = {}
     try:
@@ -136,17 +133,16 @@ def get_compliance_status():
         
         cursor = conn.cursor()
         
-        # فحص وجود مفتاح التشفير
+        # 1. Encryption Key Check
         cursor.execute("SELECT name FROM sys.symmetric_keys WHERE name = 'UserKey'")
         row = cursor.fetchone()
         
         if row:
             report['encryption'] = {"status": "PASS", "evidence": "AES_256 Key Active"}
         else:
-            # --- ميزة التنبيه الذكي برمجياً ---
             report['encryption'] = {"status": "FAIL", "evidence": "CRITICAL: Key Deleted!"}
             
-            # تسجيل الحدث في جدول AuditLog فوراً لكي يظهر في خيار 3
+            # Auto-log security violation
             try:
                 insert_query = """
                 INSERT INTO AuditLog (Action, TableName, ActionTime, UserHash)
@@ -156,9 +152,9 @@ def get_compliance_status():
                 conn.commit()
                 log_event("SentinAI auto-logged a security violation: Key Missing", "WARNING")
             except:
-                pass # في حال فشل التسجيل لا نعطل البرنامج
+                pass 
 
-        # فحص وجود جدول سجلات التدقيق
+        # 2. Audit Table Integrity Check
         cursor.execute("SELECT name FROM sys.tables WHERE name = 'AuditLog'")
         audit_row = cursor.fetchone()
         report['audit'] = {
@@ -173,7 +169,7 @@ def get_compliance_status():
         log_event(f"Compliance Check Error: {str(e)}", "ERROR")
         return {"ERROR": str(e)}
 
-# --- 8. تتبع التغييرات وتحليل المخاطر ---
+# --- Forensics & Change Tracking ---
 def get_change_history():
     changes = []
     try:
@@ -206,7 +202,7 @@ def get_change_history():
         log_event(f"History Retrieval Error: {str(e)}", "ERROR")
         return []
 
-# --- 9. تشغيل الإيجينت ---
+# --- Main Intelligence Loop ---
 def run_agent_v6():
     authenticated, current_user = login_system()
     if not authenticated:
