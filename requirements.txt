@@ -1,0 +1,13 @@
+# --- SentinAI Project Dependencies ---
+
+# Database Connectivity
+# Required for connecting Python to MS SQL Server
+pyodbc
+
+# Web Scraping & Legal Intelligence
+# Used to fetch and parse updates from regulatory websites (e.g., SDAIA)
+requests
+beautifulsoup4
+
+# Note: Standard libraries used (os, time, configparser, logging, getpass, datetime) 
+# are built into Python and do not need to be listed here.
